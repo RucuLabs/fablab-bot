@@ -18,7 +18,6 @@ logging.basicConfig(
 
 if __name__ == '__main__':
     application = ApplicationBuilder().token(BOT_TOKEN).build()
-    print(brain)
     start_handler = CommandHandler('start', brain.start)
     application.add_handler(start_handler)
     
