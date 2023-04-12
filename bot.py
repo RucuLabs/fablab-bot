@@ -1,19 +1,25 @@
+import logging
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+
+import brain
 
 import os
 from dotenv import load_dotenv
 
+# get bot token from .env file
 load_dotenv()
-
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
-async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text(f'Hello {update.effective_user.first_name}')
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
 
-
-app = ApplicationBuilder().token(BOT_TOKEN).build()
-
-app.add_handler(CommandHandler("hello", hello))
-
-app.run_polling()
+if __name__ == '__main__':
+    application = ApplicationBuilder().token(BOT_TOKEN).build()
+    print(brain)
+    start_handler = CommandHandler('start', brain.start)
+    application.add_handler(start_handler)
+    
+    application.run_polling()
