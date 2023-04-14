@@ -27,14 +27,14 @@ if __name__ == '__main__':
     
     # door commands
     open_handler = CommandHandler('open', brain.open_door)
-    door_permit_handler = CommandHandler('doorPermit', brain.add_door_permit)
+    door_permit_handler = CommandHandler('doorpermit', brain.add_door_permit)
     
     # user commands
-    add_user_handler = CommandHandler('addUser', brain.add_user)
-    edit_user_handler = CommandHandler('editUser', brain.edit_user)
-    delete_user_handler = CommandHandler('deleteUser', brain.delete_user)
-    search_user_handler = CommandHandler('searchUser', brain.search_user)
-    list_users_handler = CommandHandler('listUsers', brain.list_users)
+    add_user_handler = CommandHandler('adduser', brain.add_user)
+    edit_user_handler = CommandHandler('edituser', brain.edit_user)
+    delete_user_handler = CommandHandler('deleteuser', brain.delete_user)
+    search_user_handler = CommandHandler('searchuser', brain.search_user)
+    list_users_handler = CommandHandler('listusers', brain.list_users)
     
     # adding handlers to app
 
