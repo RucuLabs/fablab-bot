@@ -24,6 +24,7 @@ if __name__ == '__main__':
     # app commands
     start_handler = CommandHandler('start', brain.start)
     help_handler = CommandHandler('help', brain.help_c)
+    health_handler = CommandHandler('health', brain.health)
     
     # door commands
     open_handler = CommandHandler('open', brain.open_door)
@@ -41,6 +42,7 @@ if __name__ == '__main__':
     # app commands
     application.add_handler(start_handler)
     application.add_handler(help_handler)
+    application.add_handler(health_handler)
     
     # door commands
     application.add_handler(open_handler)
