@@ -1,6 +1,6 @@
 import logging
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, ConversationHandler, MessageHandler
 
 import brain
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     door_permit_handler = CommandHandler('doorpermit', brain.add_door_permit)
     
     # user commands
-    add_user_handler = CommandHandler('adduser', brain.add_user)
+    add_user_handler = brain.add_user_handler
     edit_user_handler = CommandHandler('edituser', brain.edit_user)
     delete_user_handler = CommandHandler('deleteuser', brain.delete_user)
     search_user_handler = CommandHandler('searchuser', brain.search_user)
