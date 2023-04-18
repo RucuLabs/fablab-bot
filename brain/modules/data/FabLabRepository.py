@@ -18,9 +18,13 @@ class FabLabRepository:
 
 
     def get_user(self, id):
-        user = Model.Users.get(Model.Users.telegram_id == id)
-        return user
-    
+        try:
+            user = Model.Users.get(Model.Users.telegram_id == id)
+            return user
+        except Exception as ex:
+            return ex
+            
+
     def get_all_users(self):
         return Model.Users.select() 
 
