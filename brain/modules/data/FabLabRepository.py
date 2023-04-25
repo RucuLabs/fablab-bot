@@ -32,5 +32,15 @@ class FabLabRepository:
         user = self.get_user(id)
         new_door = Model.Door.create(user=user, role="Default", limit_date = datetime.date.today())
         new_door.save()
+    
+    def check_door_auth(self, id):
+        try:
+            user = self.get_user(id)
+            door = Model.Door.get(Model.Door.user == user)
+            return True
+        
+        except Exception as ex:
+            print(ex)
+            return False
 
 

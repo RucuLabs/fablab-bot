@@ -7,11 +7,12 @@ help_text = """
     help - información sobre los comandos
     
     **admin**
-    adduser - añade un usuario a la base de datos del FabLab
-    edituser - edita un usuario de la base de datos del FabLab
-    deleteuser - borra un usuario de la base de datos del FabLab
-    searchuser - busca a un usuario en la base de datos del FabLab
-    doorpermit - entrega permisos de acceso a un usuario del FabLab
+    adduser @param usuario - añade un usuario a la base de datos del FabLab
+    edituser @param usuario - edita un usuario de la base de datos del FabLab
+    deleteuser @param usuario - borra un usuario de la base de datos del FabLab
+    searchuser @param usuario - busca a un usuario en la base de datos del FabLab
+    doorpermit @param usuario - entrega permisos de acceso a un usuario del FabLab
+    listusers - muestra los ususarios registrados en la base de datos del FabLab
 """
 
 async def help_c(update: Update, context: ContextTypes.DEFAULT_TYPE):

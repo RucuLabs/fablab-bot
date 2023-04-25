@@ -31,7 +31,7 @@ if __name__ == '__main__':
     door_permit_handler = CommandHandler('doorpermit', brain.add_door_permit)
     
     # user commands
-    add_user_handler = brain.add_user_handler
+    add_user_handler = brain.add_user_handler # adduser
     edit_user_handler = CommandHandler('edituser', brain.edit_user)
     delete_user_handler = CommandHandler('deleteuser', brain.delete_user)
     search_user_handler = CommandHandler('searchuser', brain.search_user)

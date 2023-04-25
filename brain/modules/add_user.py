@@ -52,7 +52,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     return ConversationHandler.END
 
 add_user_handler = ConversationHandler(
-    entry_points=[CommandHandler("add_user", add_user)],
+    entry_points=[CommandHandler("adduser", add_user)],
     states={
         NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, name)],
     },
