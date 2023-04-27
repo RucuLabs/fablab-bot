@@ -11,9 +11,9 @@ class BaseModel(Model):
 class Users(BaseModel):
     telegram_id = CharField(unique=True)
     name = CharField()
+    role = CharField()
 
 
 class Door(BaseModel):
     user = ForeignKeyField(Users, backref='door')
-    role = CharField()
     limit_date = DateField()

@@ -19,9 +19,9 @@ async def open_door(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     id = update.message.from_user.username
     db = FabLabRepository()
-    if (db.check_door_auth(id)):
+    if (db.check_door_auth("@" + id)):
         now = dt.datetime.now()
-        logger.info("El usuario " + id + " abrió la puerta a las: " + str(now))
+        logger.info("El usuario @" + id + " abrió la puerta a las: " + str(now))
         publish.single(MQTT_PATH, "open", hostname=MQTT_SERVER)
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Abriendo puerta.")
     else:

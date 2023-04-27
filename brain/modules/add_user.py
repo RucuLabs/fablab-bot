@@ -16,15 +16,24 @@ NAME = range(1)
 async def add_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     try:
-        user_id = context.args[0]
-        context.user_data["id"] = user_id
-        await update.message.reply_text(
-            "Ingrese nombre completo del usuario. Para cancelar escriba /cancel"
-        )
-        return NAME
+        user = update.message.from_user.username
+        db = FabLabRepository()
+        if(db.get_role("@" + user) == "Admin"):
+            user_id = context.args[0]
+            context.user_data["id"] = user_id
+            await update.message.reply_text(
+                "Ingrese nombre completo del usuario. Para cancelar escriba /cancel"
+            )
+            return NAME
+        else:
+            await update.message.reply_text(
+                "No tienes permisos suficientes."
+            )
+            return ConversationHandler.END
+
     except Exception as ex:
         logger.info("Error: %s", ex)
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Hubo un error, intente denuevo.")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Hubo un error, falta parámetro de usuario.")
 
         return ConversationHandler.END
 
@@ -35,7 +44,7 @@ async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data["name"] = name
     logger.info("Received name: %s %a",  name, context.user_data["id"])
     db = FabLabRepository()
-    db.add_user(context.user_data["id"], context.user_data["name"])
+    db.add_user(context.user_data["id"], context.user_data["name"], "Default")
     await update.message.reply_text("Se agrego al usuario " + context.user_data["id"] + " " + context.user_data["name"])
 
     return ConversationHandler.END
