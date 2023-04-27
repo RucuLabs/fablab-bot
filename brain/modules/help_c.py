@@ -7,6 +7,7 @@ help_text = """
     help - información sobre los comandos
     
     **admin**
+    * ingrese el usuario en formato @username
     adduser @param usuario - añade un usuario a la base de datos del FabLab
     edituser @param usuario - edita un usuario de la base de datos del FabLab
     deleteuser @param usuario - borra un usuario de la base de datos del FabLab
