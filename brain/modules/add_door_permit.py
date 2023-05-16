@@ -12,9 +12,10 @@ logger = logging.getLogger(__name__)
 
 async def add_door_permit(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
+        user = update.message.from_user.username
         db = FabLabRepository()
-        user_id = context.args[0] 
-        if((db.get_role("@" + user_id) == "Admin") or (db.get_role("@" + user_id) == "Super")):
+        if((db.get_role(user) == "Admin") or (db.get_role(user) == "Super")):
+            user_id = context.args[0]
             db.add_user_to_door(user_id)
             user = db.get_user(user_id).name
             await context.bot.send_message(chat_id=update.effective_chat.id, text="El usuario " + user + " ahora tiene permisos de puerta.")
