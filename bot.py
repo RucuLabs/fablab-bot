@@ -32,6 +32,7 @@ if __name__ == '__main__':
     
     # user commands
     add_user_handler = brain.add_user_handler # adduser
+    add_admin_handler = brain.add_admin_handler # add admin
     edit_user_handler = CommandHandler('edituser', brain.edit_user)
     delete_user_handler = CommandHandler('deleteuser', brain.delete_user)
     search_user_handler = CommandHandler('searchuser', brain.search_user)
@@ -50,6 +51,7 @@ if __name__ == '__main__':
     
     # user commands
     application.add_handler(add_user_handler)
+    application.add_handler(add_admin_handler)
     application.add_handler(edit_user_handler)
     application.add_handler(delete_user_handler)
     application.add_handler(search_user_handler)

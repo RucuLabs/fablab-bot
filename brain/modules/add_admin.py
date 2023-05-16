@@ -13,16 +13,16 @@ logger = logging.getLogger(__name__)
 
 NAME = range(1)
 
-async def add_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def add_admin(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     try:
         user = update.message.from_user.username
         db = FabLabRepository()
-        if((db.get_role("@" + user) == "Admin") or (db.get_role("@" + user) == "Super")):
+        if(db.get_role("@" + user) == "Super"):
             user_id = context.args[0]
             context.user_data["id"] = user_id
             await update.message.reply_text(
-                "Ingrese nombre completo del usuario. Para cancelar escriba /cancel"
+                "Ingrese nombre completo del nuevo admin. Para cancelar escriba /cancel"
             )
             return NAME
         else:
@@ -44,8 +44,8 @@ async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data["name"] = name
     logger.info("Received name: %s %a",  name, context.user_data["id"])
     db = FabLabRepository()
-    db.add_user(context.user_data["id"], context.user_data["name"], "Default")
-    await update.message.reply_text("Se agrego al usuario " + context.user_data["id"] + " " + context.user_data["name"])
+    db.add_user(context.user_data["id"], context.user_data["name"], "Admin")
+    await update.message.reply_text("Se agrego al admin " + context.user_data["id"] + " " + context.user_data["name"])
 
     return ConversationHandler.END
 
@@ -60,8 +60,8 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
     return ConversationHandler.END
 
-add_user_handler = ConversationHandler(
-    entry_points=[CommandHandler("adduser", add_user)],
+add_admin_handler = ConversationHandler(
+    entry_points=[CommandHandler("addadmin", add_admin)],
     states={
         NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, name)],
     },

@@ -35,7 +35,7 @@ class FabLabRepository:
     def check_door_auth(self, id):
         try:
             user = self.get_user(id)
-            if (user.role == "Admin"):
+            if (user.role == "Admin") or (user.role == "Super"):
                 return True
             door = Model.Door.get(Model.Door.user == user)
             return True
