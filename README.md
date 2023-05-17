@@ -1,9 +1,9 @@
-# fablab-bot
-Python based telegram bot that manages the IoT network of the FCFMś FabLab (University of Chile).
+# FabLabFCFM Telegram Bot
+Python based telegram bot that manages the IoT network of the FCFM's FabLab (University of Chile).
 
 ### Installing
 
-It is highly advised that you use a **Python Virtual Environment** to install the modules.
+It is highly advised that you use a **Python Virtual Environment** to install the modules, also make sure you are using Python 3.10 and above.
 
 1. Creating the virtual environment
 
@@ -37,6 +37,6 @@ It is highly advised that you use a **Python Virtual Environment** to install th
 
 ### Executing
 
-    ```bash
-    python bot.py
-    ```
+```bash
+python bot.py
+```
