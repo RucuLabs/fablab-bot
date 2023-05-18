@@ -6,7 +6,7 @@ help_text = """
 Este bot maneja la red IoT del FabLab de la FCFM. Para registrarte debes hablar con algún administrador, lo mismo para los permisos.
 
 *Comandos generales*
-help - información sobre los comandos
+help - información sobre los comandos y el bot
 
 *Comandos usuarios con acceso a puerta*
 open - abre la puerta del FabLab
