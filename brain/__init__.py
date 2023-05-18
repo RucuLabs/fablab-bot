@@ -1,5 +1,6 @@
 from brain.modules.start import start
 from brain.modules.help_c import help_c
+from brain.modules.help_admin import help_admin
 from brain.modules.health import health
 
 from brain.modules.open_door import open_door
