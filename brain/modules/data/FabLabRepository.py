@@ -50,6 +50,9 @@ class FabLabRepository:
 
         except:
             return None
+        
+    def add_door_log(self, id, time):
+        return Model.DoorLogs.create(telegram_id = id, time = time)
 
 
 
