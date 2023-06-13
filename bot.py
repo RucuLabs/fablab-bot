@@ -1,6 +1,6 @@
 import logging
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, ConversationHandler, MessageHandler
+from telegram.ext import ApplicationBuilder, CallbackQueryHandler, CommandHandler, ContextTypes, ConversationHandler, MessageHandler
 
 import brain
 
@@ -38,6 +38,8 @@ if __name__ == '__main__':
     delete_user_handler = CommandHandler('deleteuser', brain.delete_user)
     search_user_handler = CommandHandler('searchuser', brain.search_user)
     list_users_handler = CommandHandler('listusers', brain.list_users)
+    join_pending_handler = CommandHandler('join', brain.join_pending)
+    confirm_pending_handler = CallbackQueryHandler(brain.confirm_pending)
     
     # adding handlers to app
 
@@ -58,5 +60,7 @@ if __name__ == '__main__':
     application.add_handler(delete_user_handler)
     application.add_handler(search_user_handler)
     application.add_handler(list_users_handler)
+    application.add_handler(join_pending_handler)
+    application.add_handler(confirm_pending_handler)
 
     application.run_polling()
