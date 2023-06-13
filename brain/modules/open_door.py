@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 async def open_door(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     id = update.message.from_user.username
-    print(update.message.from_user.id)
+    # print(update.message.from_user.id)
     db = FabLabRepository()
     if (db.check_door_auth("@" + id)): #check!!!
         now = dt.datetime.now()

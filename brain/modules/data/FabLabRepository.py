@@ -8,12 +8,20 @@ class FabLabRepository:
     def __init__(self):
         self.db = Model.db
     
-    def add_user(self, id, name, role):
+    def add_pending(self, telegram_id, name, role):
         try:
             with self.db.atomic():
-                return Model.Users.create(telegram_id = id, name = name, role = role)
+                return Model.Pending.create(telegram_id = telegram_id, name = name, role = role)
         except peewee.IntegrityError:
-            return Model.Users.get(Model.Users.telegram_id == id)
+            return Model.Pending.get(Model.Pending.telegram_id == telegram_id)
+
+        
+    def add_user(self, id, telegram_id, name, role):
+        try:
+            with self.db.atomic():
+                return Model.Users.create(id=id, telegram_id = telegram_id, name = name, role = role)
+        except peewee.IntegrityError:
+            return Model.Users.get(Model.Users.id == id)
 
 
     def get_user(self, id):

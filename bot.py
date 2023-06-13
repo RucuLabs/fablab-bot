@@ -32,7 +32,7 @@ if __name__ == '__main__':
     door_permit_handler = CommandHandler('doorpermit', brain.add_door_permit)
     
     # user commands
-    add_user_handler = brain.add_user_handler # adduser
+    add_pending_handler = brain.add_pending_handler # adduser pendiente
     add_admin_handler = brain.add_admin_handler # add admin
     edit_user_handler = CommandHandler('edituser', brain.edit_user)
     delete_user_handler = CommandHandler('deleteuser', brain.delete_user)
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     application.add_handler(door_permit_handler)
     
     # user commands
-    application.add_handler(add_user_handler)
+    application.add_handler(add_pending_handler)
     application.add_handler(add_admin_handler)
     application.add_handler(edit_user_handler)
     application.add_handler(delete_user_handler)

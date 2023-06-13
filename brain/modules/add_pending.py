@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 NAME = range(1)
 
-async def add_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def add_pending(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     try:
         user = update.message.from_user.username
@@ -44,8 +44,8 @@ async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data["name"] = name
     logger.info("Received name: %s %a",  name, context.user_data["id"])
     db = FabLabRepository()
-    db.add_user(context.user_data["id"], context.user_data["name"], "Default")
-    await update.message.reply_text("Se agrego al usuario " + context.user_data["id"] + " " + context.user_data["name"])
+    db.add_pending(context.user_data["id"], context.user_data["name"], "Default")
+    await update.message.reply_text("Se agrego al usuario " + context.user_data["id"] + " " + context.user_data["name"] + " a la lista de pendientes." )
 
     return ConversationHandler.END
 
@@ -60,8 +60,8 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
     return ConversationHandler.END
 
-add_user_handler = ConversationHandler(
-    entry_points=[CommandHandler("adduser", add_user)],
+add_pending_handler = ConversationHandler(
+    entry_points=[CommandHandler("adduser", add_pending)],
     states={
         NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, name)],
     },
