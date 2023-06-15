@@ -16,9 +16,9 @@ NAME = range(1)
 async def add_pending(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     try:
-        user = update.message.from_user.username
+        id = update.message.from_user.id
         db = FabLabRepository()
-        if((db.get_role("@" + user) == "Admin") or (db.get_role("@" + user) == "Super")):
+        if((db.get_role(id) == "Admin") or (db.get_role(id) == "Super")):
             user_id = context.args[0]
             context.user_data["id"] = user_id
             await update.message.reply_text(

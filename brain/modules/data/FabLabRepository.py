@@ -24,9 +24,16 @@ class FabLabRepository:
             return Model.Users.get(Model.Users.id == id)
 
     #Hay que cambiar
-    def get_user(self, id):
+    def get_user_by_username(self, telegram_id):
         try:
-            user = Model.Users.get(Model.Users.telegram_id == id)
+            user = Model.Users.get(Model.Users.telegram_id == telegram_id)
+            return user
+        except Exception as ex:
+            return ex
+    
+    def get_user_by_id(self, id):
+        try:
+            user = Model.Users.get(Model.Users.id == id)
             return user
         except Exception as ex:
             return ex
@@ -35,14 +42,14 @@ class FabLabRepository:
     def get_all_users(self):
         return Model.Users.select() 
 
-    def add_user_to_door(self, id):
-        user = self.get_user(id)
+    def add_user_to_door(self, telegram_id):
+        user = self.get_user_by_username(telegram_id)
         new_door = Model.Door.create(user=user, limit_date = datetime.date.today())
         new_door.save()
     
     def check_door_auth(self, id):
         try:
-            user = self.get_user(id)
+            user = self.get_user_by_id(id)
             if (user.role == "Admin") or (user.role == "Super"):
                 return True
             door = Model.Door.get(Model.Door.user == user)
@@ -53,14 +60,14 @@ class FabLabRepository:
         
     def get_role(self, id):
         try:
-            role = self.get_user(id).role
+            role = self.get_user_by_id(id).role
             return role
 
         except:
             return None
         
-    def add_door_log(self, id, time):
-        return Model.DoorLogs.create(telegram_id = id, time = time)
+    def add_door_log(self, id, telegram_id, time):
+        return Model.DoorLogs.create(id = id, telegram_id = telegram_id, time = time)
 
     def is_pending(self, telegram_id):
         query = Model.Pending.select().where(Model.Pending.telegram_id == telegram_id)
