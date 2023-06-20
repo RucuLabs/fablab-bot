@@ -24,7 +24,7 @@ async def open_door(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if (db.check_door_auth(id)): 
         user = db.get_user_by_id(id)
         now = dt.datetime.now()
-        db.add_door_log(id, user.telegram_id, now)
+        db.add_door_log(user, now)
         door_logger.info(f"{user.name} ha abierto la puerta.",)
         publish.single(MQTT_PATH, "open", hostname=MQTT_SERVER)
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Abriendo puerta.")

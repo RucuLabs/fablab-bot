@@ -23,7 +23,6 @@ class FabLabRepository:
         except peewee.IntegrityError:
             return Model.Users.get(Model.Users.id == id)
 
-    #Hay que cambiar
     def get_user_by_username(self, telegram_id):
         try:
             user = Model.Users.get(Model.Users.telegram_id == telegram_id)
@@ -66,8 +65,8 @@ class FabLabRepository:
         except:
             return None
         
-    def add_door_log(self, id, telegram_id, time):
-        return Model.DoorLogs.create(id = id, telegram_id = telegram_id, time = time)
+    def add_door_log(self, user, time):
+        return Model.DoorLogs.create(user = user, time = time)
 
     def is_pending(self, telegram_id):
         query = Model.Pending.select().where(Model.Pending.telegram_id == telegram_id)

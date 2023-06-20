@@ -25,6 +25,5 @@ class Door(BaseModel):
     limit_date = DateField()
 
 class DoorLogs(BaseModel):
-    id = CharField()
-    telegram_id = CharField()
+    user = ForeignKeyField(Users, backref='door log')
     time = DateTimeField()
