@@ -37,6 +37,7 @@ if __name__ == '__main__':
     list_users_handler = CommandHandler('listusers', brain.list_users)
     join_pending_handler = CommandHandler('join', brain.join_pending)
     confirm_pending_handler = CallbackQueryHandler(brain.confirm_pending)
+    door_log_handler = CommandHandler('doorlog', brain.door_log)
     
     # adding handlers to app
 
@@ -59,5 +60,6 @@ if __name__ == '__main__':
     application.add_handler(list_users_handler)
     application.add_handler(join_pending_handler)
     application.add_handler(confirm_pending_handler)
+    application.add_handler(door_log_handler)
 
     application.run_polling()

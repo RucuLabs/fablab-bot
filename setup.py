@@ -14,5 +14,5 @@ ADMIN_ID = os.getenv('ADMIN_ID')
 if __name__ == '__main__':
     db = Model.db
     db.create_tables([Model.Users, Model.Pending, Model.Door, Model.DoorLogs])
-    FabLabRepository().add_user(ADMIN_ID,ADMIN_USER, ADMIN_NAME, "Super") #falta el id 
+    FabLabRepository().add_user(ADMIN_ID,ADMIN_USER, ADMIN_NAME, "Super")
     

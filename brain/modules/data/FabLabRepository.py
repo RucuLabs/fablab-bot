@@ -40,6 +40,9 @@ class FabLabRepository:
 
     def get_all_users(self):
         return Model.Users.select() 
+    
+    def get_door_logs(self):
+        return Model.DoorLogs.select().order_by(Model.DoorLogs.time.desc()).limit(10)
 
     def add_user_to_door(self, telegram_id):
         user = self.get_user_by_username(telegram_id)

@@ -15,3 +15,4 @@ from brain.modules.edit_user import edit_user
 from brain.modules.list_users import list_users
 from brain.modules.search_user import search_user
 from brain.modules.user_join import join_pending, confirm_pending
+from brain.modules.door_log import door_log
