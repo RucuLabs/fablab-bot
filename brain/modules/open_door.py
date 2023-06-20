@@ -8,23 +8,24 @@ import datetime as dt
 MQTT_SERVER = "localhost"
 MQTT_PATH = "fab/door"
 
-# Enable logging
-logging.basicConfig(filename='./logs/example.log', encoding='utf-8',
-    format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
-)
-logger = logging.getLogger(__name__)
+door_logger = logging.getLogger(__name__)
+door_logger.setLevel(logging.INFO)
 
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+file_handler = logging.FileHandler('./logs/door.log')
+file_handler.setFormatter(formatter)
+door_logger.addHandler(file_handler)
 
 async def open_door(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     id = update.message.from_user.id
-    # print(update.message.from_user.id)
     db = FabLabRepository()
-    if (db.check_door_auth(id)): #check!!!
+    if (db.check_door_auth(id)): 
         user = db.get_user_by_id(id)
         now = dt.datetime.now()
         db.add_door_log(id, user.telegram_id, now)
-        logger.info((id, user.telegram_id))
+        door_logger.info(f"{user.name} ha abierto la puerta.",)
         publish.single(MQTT_PATH, "open", hostname=MQTT_SERVER)
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Abriendo puerta.")
     else:

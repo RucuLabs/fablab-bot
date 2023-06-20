@@ -4,10 +4,7 @@ from telegram import Update
 from telegram.ext import ContextTypes
 from brain.modules.data.FabLabRepository import FabLabRepository
 
-# Enable logging
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
+
 logger = logging.getLogger(__name__)
 
 async def add_door_permit(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -24,5 +21,5 @@ async def add_door_permit(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await context.bot.send_message(chat_id=update.effective_chat.id, text="No tienes permisos suficientes.")
 
     except Exception as ex:
-        logger.info("Error: %s", ex)
+        logger.error("Error: %s", ex)
         await context.bot.send_message(chat_id=update.effective_chat.id, text="No se pudo dar permisos al usuario")
