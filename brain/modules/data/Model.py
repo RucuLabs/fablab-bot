@@ -9,6 +9,12 @@ class BaseModel(Model):
         database = db     
 
 class Users(BaseModel):
+    id = CharField(unique=True)
+    telegram_id = CharField()
+    name = CharField()
+    role = CharField()
+
+class Pending(BaseModel):
     telegram_id = CharField(unique=True)
     name = CharField()
     role = CharField()
@@ -17,3 +23,7 @@ class Users(BaseModel):
 class Door(BaseModel):
     user = ForeignKeyField(Users, backref='door')
     limit_date = DateField()
+
+class DoorLogs(BaseModel):
+    user = ForeignKeyField(Users, backref='door log')
+    time = DateTimeField()

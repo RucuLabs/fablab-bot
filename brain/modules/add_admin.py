@@ -44,7 +44,7 @@ async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data["name"] = name
     logger.info("Received name: %s %a",  name, context.user_data["id"])
     db = FabLabRepository()
-    db.add_user(context.user_data["id"], context.user_data["name"], "Admin")
+    db.add_pending(context.user_data["id"], context.user_data["name"], "Admin")
     await update.message.reply_text("Se agrego al admin " + context.user_data["id"] + " " + context.user_data["name"])
 
     return ConversationHandler.END

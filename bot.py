@@ -1,6 +1,6 @@
 import logging
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, ConversationHandler, MessageHandler
+from telegram.ext import ApplicationBuilder, CallbackQueryHandler, CommandHandler, ContextTypes, ConversationHandler, MessageHandler
 
 import brain
 
@@ -11,10 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
-)
+
 
 if __name__ == '__main__':
     application = ApplicationBuilder().token(BOT_TOKEN).build()
@@ -32,12 +29,15 @@ if __name__ == '__main__':
     door_permit_handler = CommandHandler('doorpermit', brain.add_door_permit)
     
     # user commands
-    add_user_handler = brain.add_user_handler # adduser
+    add_pending_handler = brain.add_pending_handler # adduser pendiente
     add_admin_handler = brain.add_admin_handler # add admin
     edit_user_handler = CommandHandler('edituser', brain.edit_user)
     delete_user_handler = CommandHandler('deleteuser', brain.delete_user)
     search_user_handler = CommandHandler('searchuser', brain.search_user)
     list_users_handler = CommandHandler('listusers', brain.list_users)
+    join_pending_handler = CommandHandler('join', brain.join_pending)
+    confirm_pending_handler = CallbackQueryHandler(brain.confirm_pending)
+    door_log_handler = CommandHandler('doorlog', brain.door_log)
     
     # adding handlers to app
 
@@ -52,11 +52,14 @@ if __name__ == '__main__':
     application.add_handler(door_permit_handler)
     
     # user commands
-    application.add_handler(add_user_handler)
+    application.add_handler(add_pending_handler)
     application.add_handler(add_admin_handler)
     application.add_handler(edit_user_handler)
     application.add_handler(delete_user_handler)
     application.add_handler(search_user_handler)
     application.add_handler(list_users_handler)
+    application.add_handler(join_pending_handler)
+    application.add_handler(confirm_pending_handler)
+    application.add_handler(door_log_handler)
 
     application.run_polling()

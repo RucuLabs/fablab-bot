@@ -4,21 +4,16 @@ from telegram import Update
 from telegram.ext import ContextTypes, ConversationHandler, CommandHandler, MessageHandler, filters
 from brain.modules.data.FabLabRepository import FabLabRepository
 
-
-# Enable logging
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
 logger = logging.getLogger(__name__)
 
 NAME = range(1)
 
-async def add_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def add_pending(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     try:
-        user = update.message.from_user.username
+        id = update.message.from_user.id
         db = FabLabRepository()
-        if((db.get_role("@" + user) == "Admin") or (db.get_role("@" + user) == "Super")):
+        if((db.get_role(id) == "Admin") or (db.get_role(id) == "Super")):
             user_id = context.args[0]
             context.user_data["id"] = user_id
             await update.message.reply_text(
@@ -32,7 +27,7 @@ async def add_user(update: Update, context: ContextTypes.DEFAULT_TYPE):
             return ConversationHandler.END
 
     except Exception as ex:
-        logger.info("Error: %s", ex)
+        logger.error("Error: %s", ex)
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Hubo un error, falta parámetro de usuario.")
 
         return ConversationHandler.END
@@ -44,8 +39,8 @@ async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data["name"] = name
     logger.info("Received name: %s %a",  name, context.user_data["id"])
     db = FabLabRepository()
-    db.add_user(context.user_data["id"], context.user_data["name"], "Default")
-    await update.message.reply_text("Se agrego al usuario " + context.user_data["id"] + " " + context.user_data["name"])
+    db.add_pending(context.user_data["id"], context.user_data["name"], "Default")
+    await update.message.reply_text("Se agrego al usuario " + context.user_data["id"] + " " + context.user_data["name"] + " a la lista de pendientes." )
 
     return ConversationHandler.END
 
@@ -60,8 +55,8 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
     return ConversationHandler.END
 
-add_user_handler = ConversationHandler(
-    entry_points=[CommandHandler("adduser", add_user)],
+add_pending_handler = ConversationHandler(
+    entry_points=[CommandHandler("adduser", add_pending)],
     states={
         NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, name)],
     },
